@@ -35,7 +35,29 @@ def search_student():
             student.display()
             return
 
-    print("\n❌ Student Not Found!")       
+    print("\n❌ Student Not Found!")   
+
+def update_student():
+    update_id = int(input("enter student ID to Update"))
+
+    for student in students:
+        if student.student_id == update_id:
+
+            print("\n Current details:")
+            student.display()
+
+
+            student.name = input("Enter New Name  ;")
+            student.age = int(input("Enter new Age:"))
+            student.course = input("Enter New Course")
+            student.marks = float(input("Enter New Marks:"))
+
+            print("\n ✅ Student Updated Successfully!")
+            return
+
+        print("\n❌ Student Not Found!")
+
+
 
 
 while True:
@@ -43,7 +65,8 @@ while True:
     print("1. Add Student")
     print("2. View Students")
     print("3. Search Student")
-    print("4. Exit")
+    print("4. Update Student")
+    print("5. Exit")
 
     choice = input("Enter your choice: ")
 
@@ -57,6 +80,10 @@ while True:
         search_student()
 
     elif choice == "4":
+        update_student()
+              
+
+    elif choice == "5":
         print("Thank you ")
         break
 
