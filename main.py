@@ -44,6 +44,14 @@ def search_student():
 
     print("\n❌ Student Not Found!")   
 
+def student_statistics():
+    students = load_students()
+
+    print("\n========Student Statistics =========")
+    print(f"Total Students : {len(students)}")
+    print("=======================================")
+
+
 def update_student():
     update_id = int(input("enter student ID to Update"))
 
@@ -92,7 +100,8 @@ while True:
     print("3. Search Student")
     print("4. Update Student")
     print("5. Delete Student")
-    print("6. Exit")
+    print("6. Student statistics")
+    print("7. Exit")
 
     choice = input("Enter your choice: ")
 
@@ -111,8 +120,11 @@ while True:
 
     elif choice == "5":
         delete_student()
-        
 
     elif choice == "6":
+        student_statistics()    
+        
+
+    elif choice == "7":
         print("Thank you for using Student Management System.") 
         break
