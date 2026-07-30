@@ -1,5 +1,10 @@
+from auth import login
 from database import save_students, load_students
 from student import Student
+
+if not login():
+    print("Exiting Program...")
+    exit()
 
 students = []
 
