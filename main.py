@@ -1,3 +1,4 @@
+from database import save_students, load_students
 from student import Student
 
 students = []
@@ -12,6 +13,7 @@ def add_student():
 
     student = Student(student_id, name, age, course, marks)
     students.append(student)
+    save_students(students)
 
     print("\n✅ Student Added Successfully!")
 
@@ -56,6 +58,24 @@ def update_student():
             return
 
         print("\n❌ Student Not Found!")
+        save_students(students)
+
+def delete_student():
+    delete_id = int(input("Enter Student Id to delete"))
+
+    for  student in students:
+          if student.student_id == delete_id :
+              students.remove(student)
+              students.remove(student)
+              print("\n✅ Student Deleted Successfully!")
+              return
+
+
+    print("\n❌ Student Not Found!")
+
+    
+
+        
 
 
 
@@ -66,7 +86,8 @@ while True:
     print("2. View Students")
     print("3. Search Student")
     print("4. Update Student")
-    print("5. Exit")
+    print("5. Delete Student")
+    print("6. Exit")
 
     choice = input("Enter your choice: ")
 
@@ -84,8 +105,9 @@ while True:
               
 
     elif choice == "5":
-        print("Thank you ")
-        break
+        delete_student()
+        
 
-    else:
-        print("❌ Invalid Choice.") 
+    elif choice == "6":
+        print("Thank you for using Student Management System.") 
+        break
