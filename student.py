@@ -12,5 +12,22 @@ class Student:
         print(f"Name       : {self.name}")
         print(f"Age        : {self.age}")
         print(f"Course     : {self.course}")
-        print(f"Marks      : {self.marks}")
+        print(f"Marks      : {self.calculate_grade()}")
         print("=====================================")
+
+    def calculate_grade(self):
+        if self.marks < 0 or self.marks >100:
+            raise  ValueError("Marks must be between 0 and 100.")
+        if self.marks >=90:
+            return "A+"
+        elif self.marks >=80:
+            return "A"
+        elif self.marks >=70:
+            return "B"
+        elif self.marks >= 60:
+            return "C"
+        elif self.marks >=50:
+            return "D"
+        else:
+            return "Fail"
+        

@@ -1,9 +1,9 @@
 [
     {
-        "student_id": 102,
-        "name": "Arkan",
-        "age": 21,
+        "student_id": 22,
+        "name": "faraan",
+        "age": 22,
         "course": "cse",
-        "marks": 100.0
+        "marks": 20.0
     }
 ]
