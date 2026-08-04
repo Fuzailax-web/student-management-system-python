@@ -1,1 +1,10 @@
 2026-08-04 19:26:43,085 - INFO - Admin logged in successfully.
+2026-08-04 19:59:30,596 - INFO - Admin logged in successfully.
+2026-08-04 19:59:45,998 - INFO - Student Added: Fuzail (ID: 100)
+2026-08-04 19:59:58,996 - INFO - Student Added: arkan (ID: 20)
+2026-08-04 20:00:34,207 - INFO - Student data exported to students.csv
+2026-08-04 20:00:49,407 - INFO - Student Deleted: Ali (ID: 22)
+2026-08-04 20:04:44,049 - INFO - Admin logged in successfully.
+2026-08-04 20:06:10,635 - INFO - Student Added: suzi (ID: 37)
+2026-08-04 20:06:45,963 - INFO - Student Updated: suzi (ID: 37)
+2026-08-04 20:07:13,774 - INFO - Student data exported to students.csv

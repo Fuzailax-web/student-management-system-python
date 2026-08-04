@@ -1,17 +1,24 @@
 from auth import login
 from database import save_students, load_students, export_to_csv
 from student import Student
+from logger import logger 
 
 
 if not login():
     print("Exiting Program...")
     exit()
 
-students = []
+students = load_students()
 
 
 def add_student():
     student_id = int(input("Enter Student ID: "))
+
+    for student in students:
+        if student.student_id == student_id:
+            print("\n❌ Student ID already exists!")
+            return
+
     name = input("Enter Student Name: ")
     age = int(input("Enter Age: "))
     course = input("Enter Course: ")
@@ -19,10 +26,11 @@ def add_student():
 
     student = Student(student_id, name, age, course, marks)
     students.append(student)
+
     save_students(students)
+    logger.info(f"Student Added: {student.name} (ID: {student.student_id})")
 
     print("\n✅ Student Added Successfully!")
-
 
 def view_students():
     if len(students) == 0:
@@ -35,40 +43,62 @@ def view_students():
         student.display()
 
 def search_student():
-    search_id = int(input("Enter Student ID to search: "))
+    print("\n========== Search Student ==========")
+    print("1. Search by Student ID")
+    print("2. Search by Student Name")
 
-    for student in students:
-        if student.student_id == search_id:
-            print("\n✅ Student Found!")
-            student.display()
-            return
+    search_choice = input("Enter your choice: ")
 
-    print("\n❌ Student Not Found!")   
+    if search_choice == "1":
+        search_id = int(input("Enter Student ID to search: "))
+
+        for student in students:
+            if student.student_id == search_id:
+                print("\n✅ Student Found!")
+                student.display()
+                return
+
+        print("\n❌ Student Not Found!")
+
+    elif search_choice == "2":
+        search_name = input("Enter Student Name to search: ")
+
+        for student in students:
+            if student.name.lower() == search_name.lower():
+                print("\n✅ Student Found!")
+                student.display()
+                return
+
+        print("\n❌ Student Not Found!")
+
+    else:
+        print("\n❌ Invalid Choice!")
+
 
 def student_statistics():
-    students = load_students()
+    all_students = load_students()
 
-    if len(students) == 0:
+    if len(all_students) == 0:
         print("\nNo students found.")
         return
 
-    highest_student = max(students, key=lambda student: student.marks)
-    lowest_student = min(students, key=lambda student: student.marks)
+    highest_student = max(all_students, key=lambda student: student.marks)
+    lowest_student = min(all_students, key=lambda student: student.marks)
 
-    total_marks = sum(student.marks for student in students)
-    average_marks = total_marks / len(students)
+    total_marks = sum(student.marks for student in all_students)
+    average_marks = total_marks / len(all_students)
 
     pass_count = 0
     fail_count = 0
 
-    for student in students:
+    for student in all_students:
         if student.marks >= 50:
             pass_count += 1
         else:
             fail_count += 1
 
     print("\n======== Student Statistics ========")
-    print(f"Total Students : {len(students)}")
+    print(f"Total Students : {len(all_students)}")
     print(f"Highest Marks  : {highest_student.marks}")
     print(f"Top Student    : {highest_student.name}")
     print(f"Lowest Marks   : {lowest_student.marks}")
@@ -80,55 +110,50 @@ def student_statistics():
 
 
 def update_student():
-    update_id = int(input("enter student ID to Update"))
+    update_id = int(input("Enter Student ID to update: "))
 
     for student in students:
         if student.student_id == update_id:
 
-            print("\n Current details:")
+            print("\nCurrent Details:")
             student.display()
 
+            student.name = input("Enter New Name: ")
+            student.age = int(input("Enter New Age: "))
+            student.course = input("Enter New Course: ")
+            student.marks = float(input("Enter New Marks: "))
 
-            student.name = input("Enter New Name  ;")
-            student.age = int(input("Enter new Age:"))
-            student.course = input("Enter New Course")
-            student.marks = float(input("Enter New Marks:"))
+            save_students(students)
+            logger.info(f"Student Updated: {student.name} (ID: {student.student_id})")
 
-            print("\n ✅ Student Updated Successfully!")
+            print("\n✅ Student Updated Successfully!")
             return
-
-        print("\n❌ Student Not Found!")
-        save_students(students)
-
-def delete_student():
-    delete_id = int(input("Enter Student Id to delete"))
-
-    for  student in students:
-          if student.student_id == delete_id :
-              students.remove(student)
-              students.remove(student)
-              print("\n✅ Student Deleted Successfully!")
-              return
-
 
     print("\n❌ Student Not Found!")
 
-    
+def delete_student():
+    delete_id = int(input("Enter Student ID to delete: "))
 
-        
+    for student in students:
+        if student.student_id == delete_id:
+            students.remove(student)
+            save_students(students)
+            logger.info(f"Student Deleted: {student.name} (ID: {student.student_id})")
+            print("\n✅ Student Deleted Successfully!")
+            return
 
-
+    print("\n❌ Student Not Found!")
 
 
 while True:
     print("\n========== Student Management System ==========")
     print("1. Add Student")
     print("2. View Students")
-    print("3. Search Student")
+    print("3. Search Student (ID/Name)")
     print("4. Update Student")
     print("5. Delete Student")
-    print("6. Student statistics")
-    print("7. Export to CSV ")
+    print("6. Student Statistics")
+    print("7. Export to CSV")
     print("8. Exit")
 
     choice = input("Enter your choice: ")
@@ -144,23 +169,22 @@ while True:
 
     elif choice == "4":
         update_student()
-              
 
     elif choice == "5":
         delete_student()
 
     elif choice == "6":
-        student_statistics()    
-        
+        student_statistics()
 
     elif choice == "7":
         export_to_csv()
-        print("\nStudents Exported successfully to students.csv.") 
+        logger.info("Student data exported to students.csv")
+        print("\n✅ Students exported successfully to students.csv.")
 
     elif choice == "8":
         print("Thank you for using Student Management System.")
         break
-    else:
-        print("Invalid choice!")
 
+    else:
+        print("❌ Invalid choice!")
     

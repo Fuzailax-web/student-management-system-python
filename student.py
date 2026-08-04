@@ -12,9 +12,9 @@ class Student:
         print(f"Name       : {self.name}")
         print(f"Age        : {self.age}")
         print(f"Course     : {self.course}")
-        print(f"Marks      : {self.calculate_grade()}")
+        print(f"Marks      : {self.marks}")
+        print(f"Grade      : {self.calculate_grade()}")
         print("=====================================")
-
     def calculate_grade(self):
         if self.marks < 0 or self.marks >100:
             raise  ValueError("Marks must be between 0 and 100.")
