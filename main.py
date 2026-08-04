@@ -2,6 +2,7 @@ from auth import login
 from database import save_students, load_students, export_to_csv
 from student import Student
 
+
 if not login():
     print("Exiting Program...")
     exit()
