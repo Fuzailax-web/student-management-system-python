@@ -1,4 +1,5 @@
 import json
+import csv
 from student import Student
 
 FILE_NAME = "students.json"
@@ -44,6 +45,25 @@ def load_students():
 
     except json.JSONDecodeError:
         return []
+
+    
+def export_to_csv():
+    students = load_students()
+
+    with open("students.csv", "w", newline="") as file:
+        writer = csv.writer(file)
+
+        writer.writerow(["Student ID", "Name", "Age", "Course", "Marks", "Grade"])
+
+        for student in students:
+            writer.writerow([
+                student.student_id,
+                student.name,
+                student.age,
+                student.course,
+                student.marks,
+                student.calculate_grade()
+            ])
           
 
 

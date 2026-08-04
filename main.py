@@ -1,5 +1,5 @@
 from auth import login
-from database import save_students, load_students
+from database import save_students, load_students, export_to_csv
 from student import Student
 
 if not login():
@@ -127,7 +127,8 @@ while True:
     print("4. Update Student")
     print("5. Delete Student")
     print("6. Student statistics")
-    print("7. Exit")
+    print("7. Export to CSV ")
+    print("8. Exit")
 
     choice = input("Enter your choice: ")
 
@@ -152,5 +153,13 @@ while True:
         
 
     elif choice == "7":
-        print("Thank you for using Student Management System.") 
+        export_to_csv()
+        print("\nStudents Exported successfully to students.csv.") 
+
+    elif choice == "8":
+        print("Thank you for using Student Management System.")
         break
+    else:
+        print("Invalid choice!")
+
+    
