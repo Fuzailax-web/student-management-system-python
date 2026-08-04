@@ -1,16 +1,30 @@
 [
     {
-        "student_id": 100,
-        "name": "fuzail",
-        "age": 22,
+        "student_id": 30,
+        "name": "Arkan",
+        "age": 19,
         "course": "cse",
         "marks": 100.0
     },
     {
-        "student_id": 33,
-        "name": "ali",
-        "age": 21,
+        "student_id": 22,
+        "name": "Ali",
+        "age": 19,
         "course": "cse",
-        "marks": 90.0
+        "marks": 70.0
+    },
+    {
+        "student_id": 199,
+        "name": "sukh",
+        "age": 12,
+        "course": "cse",
+        "marks": 66.0
+    },
+    {
+        "student_id": 345,
+        "name": "fuzi",
+        "age": 14,
+        "course": "cse",
+        "marks": 30.0
     }
 ]

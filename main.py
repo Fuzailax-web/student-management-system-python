@@ -47,9 +47,35 @@ def search_student():
 def student_statistics():
     students = load_students()
 
-    print("\n========Student Statistics =========")
+    if len(students) == 0:
+        print("\nNo students found.")
+        return
+
+    highest_student = max(students, key=lambda student: student.marks)
+    lowest_student = min(students, key=lambda student: student.marks)
+
+    total_marks = sum(student.marks for student in students)
+    average_marks = total_marks / len(students)
+
+    pass_count = 0
+    fail_count = 0
+
+    for student in students:
+        if student.marks >= 50:
+            pass_count += 1
+        else:
+            fail_count += 1
+
+    print("\n======== Student Statistics ========")
     print(f"Total Students : {len(students)}")
-    print("=======================================")
+    print(f"Highest Marks  : {highest_student.marks}")
+    print(f"Top Student    : {highest_student.name}")
+    print(f"Lowest Marks   : {lowest_student.marks}")
+    print(f"Lowest Student : {lowest_student.name}")
+    print(f"Average Marks  : {average_marks:.2f}")
+    print(f"Pass Students  : {pass_count}")
+    print(f"Fail Students  : {fail_count}")
+
 
 
 def update_student():
