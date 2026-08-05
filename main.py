@@ -146,6 +146,41 @@ def delete_student():
 
 
 while True:
+
+    def sort_students():
+        print("\n======= Sort Students ========")
+        print("1. Sort by Name (A-Z)")
+        print("2. Sort by Marks (Highest First)")
+        print("3. Back")
+
+        sort_choice = input ("Enter your Choice:")
+
+
+        if sort_choice == "1":
+            sorted_students = sorted(students, key=lambda student: student.name.lower())
+
+            print("\n============= Student Sorted by Name ============")
+
+            for student in sorted_students:
+                student.display()
+
+        elif sort_choice == "2":
+            sorted_students = sorted(
+                students,
+                key=lambda student: student.marks,
+                reverse=True
+            )
+
+            print("\n=========== Sorted by Marks ============")
+
+            for student in sorted_students:
+                student.display()
+        elif sort_choice == "3":
+            return
+
+        else:
+            print("\n Invalid choice!")
+
     print("\n========== Student Management System ==========")
     print("1. Add Student")
     print("2. View Students")
@@ -154,7 +189,8 @@ while True:
     print("5. Delete Student")
     print("6. Student Statistics")
     print("7. Export to CSV")
-    print("8. Exit")
+    print("8. Sort Students")
+    print("9. Exit")
 
     choice = input("Enter your choice: ")
 
@@ -182,9 +218,10 @@ while True:
         print("\n✅ Students exported successfully to students.csv.")
 
     elif choice == "8":
+        sort_students()
+
+    elif choice == "9":
         print("Thank you for using Student Management System.")
         break
 
-    else:
-        print("❌ Invalid choice!")
     
