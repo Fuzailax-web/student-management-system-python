@@ -37,8 +37,8 @@
     {
         "student_id": 37,
         "name": "suzi",
-        "age": 19,
-        "course": "CSE",
-        "marks": 80.0
+        "age": 13,
+        "course": "cse",
+        "marks": 98.0
     }
 ]

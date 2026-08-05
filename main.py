@@ -12,17 +12,47 @@ students = load_students()
 
 
 def add_student():
-    student_id = int(input("Enter Student ID: "))
+    try:
+        student_id = int(input("Enter Student ID: "))
+    except ValueError:
+        print("\n❌ Student ID must be a number!")
+        return
 
+    # Check for duplicate Student ID
     for student in students:
         if student.student_id == student_id:
             print("\n❌ Student ID already exists!")
             return
 
-    name = input("Enter Student Name: ")
-    age = int(input("Enter Age: "))
-    course = input("Enter Course: ")
-    marks = float(input("Enter Marks: "))
+    name = input("Enter Student Name: ").strip()
+    if name == "":
+        print("\n❌ Student Name cannot be empty!")
+        return
+
+    try:
+        age = int(input("Enter Age: "))
+    except ValueError:
+        print("\n❌ Age must be a number!")
+        return
+
+    if age <= 0:
+        print("\n❌ Age must be greater than 0!")
+        return
+
+    course = input("Enter Course: ").strip()
+    if course == "":
+        print("\n❌ Course cannot be empty!")
+        return
+
+    try:
+        marks = float(input("Enter Marks: "))
+    except ValueError:
+        print("\n❌ Marks must be a number!")
+        return
+
+    if marks < 0 or marks > 100:
+        print("\n❌ Marks must be between 0 and 100!")
+        return
 
     student = Student(student_id, name, age, course, marks)
     students.append(student)
@@ -110,7 +140,11 @@ def student_statistics():
 
 
 def update_student():
-    update_id = int(input("Enter Student ID to update: "))
+    try:
+        update_id = int(input("Enter Student ID to update: "))
+    except ValueError:
+        print("\n❌ Student ID must be a number!")
+        return
 
     for student in students:
         if student.student_id == update_id:
@@ -118,10 +152,40 @@ def update_student():
             print("\nCurrent Details:")
             student.display()
 
-            student.name = input("Enter New Name: ")
-            student.age = int(input("Enter New Age: "))
-            student.course = input("Enter New Course: ")
-            student.marks = float(input("Enter New Marks: "))
+            name = input("Enter New Name: ").strip()
+            if name == "":
+                print("\n❌ Name cannot be empty!")
+                return
+
+            try:
+                age = int(input("Enter New Age: "))
+            except ValueError:
+                print("\n❌ Age must be a number!")
+                return
+
+            if age <= 0:
+                print("\n❌ Age must be greater than 0!")
+                return
+
+            course = input("Enter New Course: ").strip()
+            if course == "":
+                print("\n❌ Course cannot be empty!")
+                return
+
+            try:
+                marks = float(input("Enter New Marks: "))
+            except ValueError:
+                print("\n❌ Marks must be a number!")
+                return
+
+            if marks < 0 or marks > 100:
+                print("\n❌ Marks must be between 0 and 100!")
+                return
+
+            student.name = name
+            student.age = age
+            student.course = course
+            student.marks = marks
 
             save_students(students)
             logger.info(f"Student Updated: {student.name} (ID: {student.student_id})")
