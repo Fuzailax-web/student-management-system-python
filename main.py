@@ -10,6 +10,21 @@ if not login():
 
 students = load_students()
 
+def get_valid_int(message):
+    while True:
+        try:
+            return int(input(message))
+        except ValueError:
+            print("❌ Please enter a valid number.")
+
+
+def get_valid_float(message):
+    while True:
+        try:
+            return float(input(message))
+        except ValueError:
+            print("❌ Please enter a valid number.")
+
 
 def add_student():
     try:
@@ -196,7 +211,7 @@ def update_student():
     print("\n❌ Student Not Found!")
 
 def delete_student():
-    delete_id = int(input("Enter Student ID to delete: "))
+    delete_id = get_valid_int("Enter Student ID to delete: ")
 
     for student in students:
         if student.student_id == delete_id:
@@ -209,41 +224,44 @@ def delete_student():
     print("\n❌ Student Not Found!")
 
 
+def sort_students():
+    print("\n======= Sort Students ========")
+    print("1. Sort by Name (A-Z)")
+    print("2. Sort by Marks (Highest First)")
+    print("3. Back")
+
+    sort_choice = input("Enter your choice: ")
+
+    if sort_choice == "1":
+        sorted_students = sorted(students, key=lambda student: student.name.lower())
+
+        print("\n======= Students Sorted by Name =======")
+
+        for student in sorted_students:
+            student.display()
+
+    elif sort_choice == "2":
+        sorted_students = sorted(
+            students,
+            key=lambda student: student.marks,
+            reverse=True
+        )
+
+        print("\n======= Students Sorted by Marks =======")
+
+        for student in sorted_students:
+            student.display()
+
+    elif sort_choice == "3":
+        return
+
+    else:
+        print("\n❌ Invalid Choice!")
+
+
 while True:
 
-    def sort_students():
-        print("\n======= Sort Students ========")
-        print("1. Sort by Name (A-Z)")
-        print("2. Sort by Marks (Highest First)")
-        print("3. Back")
 
-        sort_choice = input ("Enter your Choice:")
-
-
-        if sort_choice == "1":
-            sorted_students = sorted(students, key=lambda student: student.name.lower())
-
-            print("\n============= Student Sorted by Name ============")
-
-            for student in sorted_students:
-                student.display()
-
-        elif sort_choice == "2":
-            sorted_students = sorted(
-                students,
-                key=lambda student: student.marks,
-                reverse=True
-            )
-
-            print("\n=========== Sorted by Marks ============")
-
-            for student in sorted_students:
-                student.display()
-        elif sort_choice == "3":
-            return
-
-        else:
-            print("\n Invalid choice!")
 
     print("\n========== Student Management System ==========")
     print("1. Add Student")
